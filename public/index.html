@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Lookup — King County, WA</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>🏠 Property Lookup</h1>
+      <span class="subtitle">King County, WA — Bellevue · Redmond · Kirkland · Sammamish</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Search -->
+    <section class="search-section">
+      <div class="search-tabs">
+        <button class="tab active" onclick="switchTab('address', this)">📍 Address</button>
+        <button class="tab" onclick="switchTab('mls', this)">🏷️ MLS #</button>
+      </div>
+      <div id="searchAddress" class="search-box">
+        <input type="text" id="addressInput"
+          placeholder="Enter any address (e.g., 9217 122nd Ct NE, Kirkland, WA)" />
+        <input type="text" id="unitInput"
+          placeholder="Unit # (e.g., 301)" class="unit-input" />
+        <button id="searchBtn" onclick="doSearch()">🔍 Search</button>
+      </div>
+      <div id="searchMls" class="search-box hidden">
+        <input type="text" id="mlsInput"
+          placeholder="MLS number (e.g., 2489193)" />
+        <select id="mlsState" title="State for MLS lookup">
+          <option value="WA" selected>WA</option>
+          <option value="AL">AL</option><option value="AK">AK</option><option value="AZ">AZ</option>
+          <option value="AR">AR</option><option value="CA">CA</option><option value="CO">CO</option>
+          <option value="CT">CT</option><option value="DE">DE</option><option value="FL">FL</option>
+          <option value="GA">GA</option><option value="HI">HI</option><option value="ID">ID</option>
+          <option value="IL">IL</option><option value="IN">IN</option><option value="IA">IA</option>
+          <option value="KS">KS</option><option value="KY">KY</option><option value="LA">LA</option>
+          <option value="ME">ME</option><option value="MD">MD</option><option value="MA">MA</option>
+          <option value="MI">MI</option><option value="MN">MN</option><option value="MS">MS</option>
+          <option value="MO">MO</option><option value="MT">MT</option><option value="NE">NE</option>
+          <option value="NV">NV</option><option value="NH">NH</option><option value="NJ">NJ</option>
+          <option value="NM">NM</option><option value="NY">NY</option><option value="NC">NC</option>
+          <option value="ND">ND</option><option value="OH">OH</option><option value="OK">OK</option>
+          <option value="OR">OR</option><option value="PA">PA</option><option value="RI">RI</option>
+          <option value="SC">SC</option><option value="SD">SD</option><option value="TN">TN</option>
+          <option value="TX">TX</option><option value="UT">UT</option><option value="VT">VT</option>
+          <option value="VA">VA</option><option value="WV">WV</option><option value="WI">WI</option>
+          <option value="WY">WY</option><option value="DC">DC</option>
+        </select>
+        <button id="searchMlsBtn" onclick="doMlsSearch()">🔍 Lookup</button>
+      </div>
+      <p class="hint" id="searchHint">Search King County public records. Add Unit # for condos/apartments to find the specific unit.</p>
+    </section>
+
+    <!-- Settings Toggle -->
+    <details class="settings-panel">
+      <summary>⚙️ API Settings</summary>
+      <div class="settings-body">
+        <label>
+          Realtor RapidAPI Key <span class="note">(for estimated value, property photos, MLS lookup &amp; HOA data — <a href="https://rapidapi.com/apidojo/api/realtor" target="_blank">get free key</a>)</span>
+          <input type="password" id="realtorApiKey" placeholder="From rapidapi.com/apidojo/api/realtor" />
+        </label>
+        <label>
+          Google Maps API Key <span class="note">(for Street View images — <a href="https://console.cloud.google.com/apis/credentials" target="_blank">get one free</a>)</span>
+          <input type="password" id="googleMapsKey" placeholder="AIza..." />
+        </label>
+        <button onclick="saveSettings()">💾 Save Keys</button>
+        <span id="settingsStatus" class="note"></span>
+      </div>
+    </details>
+
+    <!-- Search History Link -->
+    <div style="text-align:right;margin-bottom:0.5rem;">
+      <a href="history.html" target="_blank" class="history-link" id="historyLink">📋 Search History (<span id="historyCount">0</span>)</a>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <p>Searching King County Assessor records…</p>
+    </div>
+
+    <!-- Error -->
+    <div id="error" class="hidden card error-card">
+      <p id="errorMsg"></p>
+    </div>
+
+    <!-- No Results -->
+    <div id="noResults" class="hidden card no-results-card">
+      <div class="no-results-icon">🔍</div>
+      <h2>No Property Found</h2>
+      <p>We couldn't find any King County records for:<br><strong id="noResultsAddr"></strong></p>
+      <div class="no-results-tips">
+        <h3>Tips for better results:</h3>
+        <ul>
+          <li>Use just the <strong>street address</strong> without city/state (e.g., <code>1835 104TH AVE NE</code>)</li>
+          <li>Use the official street name — check your mail or <a href="https://gismaps.kingcounty.gov/parcelviewer2/" target="_blank">KC Parcel Viewer</a></li>
+          <li>Spell out abbreviations: <code>AVE</code>, <code>ST</code>, <code>DR</code>, <code>NE</code>, <code>SE</code></li>
+          <li>This tool only covers <strong>King County, WA</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="hidden">
+      <!-- Data Sources Banner -->
+      <div class="sources-banner" id="sourcesBanner"></div>
+
+      <!-- Property Images -->
+      <section class="card" id="imageCard">
+        <h2>📸 Property Images</h2>
+        <div class="image-gallery" id="imageGallery">
+          <!-- Filled dynamically: Realtor photo, Google Street View, map -->
+        </div>
+        <div class="photo-links" id="photoLinks">
+          <!-- Links to Zillow photos, Realtor, Redfin, Google Street View -->
+        </div>
+      </section>
+
+      <!-- Property Overview -->
+      <section class="card" id="overviewCard">
+        <h2>📋 Property Overview</h2>
+        <div class="overview-grid">
+          <div class="overview-details" id="overviewDetails"></div>
+        </div>
+      </section>
+
+      <!-- Market Value -->
+      <section class="card" id="marketCard">
+        <h2>💰 Market Value</h2>
+        <div class="value-grid" id="marketValues"></div>
+        <div id="rentalValues"></div>
+      </section>
+
+      <!-- Monthly Cost Breakdown -->
+      <section class="card" id="emiCard">
+        <h2>💳 Monthly Cost Breakdown</h2>
+        <div class="emi-inputs" id="emiInputs">
+          <div class="emi-row">
+            <label>Home Price ($): <input type="number" id="emiPrice" placeholder="0" /></label>
+            <label>Down Payment (%): <input type="number" id="emiDown" value="10" min="0" max="100" step="1" /></label>
+          </div>
+          <div class="emi-row">
+            <label>Interest Rate (%): <input type="number" id="emiRate" step="0.01" placeholder="6.5" /></label>
+            <label>Loan Term (years):
+              <select id="emiTerm">
+                <option value="30" selected>30 years</option>
+                <option value="20">20 years</option>
+                <option value="15">15 years</option>
+                <option value="10">10 years</option>
+              </select>
+            </label>
+          </div>
+          <div class="emi-row">
+            <label>Annual Property Tax ($): <input type="number" id="emiTax" placeholder="0" /></label>
+            <label>Monthly HOA ($): <input type="number" id="emiHoa" placeholder="0" /></label>
+          </div>
+          <div class="emi-row">
+            <label>Annual Insurance ($): <input type="number" id="emiInsurance" placeholder="0" /></label>
+          </div>
+          <div style="margin-top:0.6rem;">
+            <button class="emi-calc-btn" onclick="recalculateEMI()">🔄 Recalculate Monthly Cost</button>
+          </div>
+          <div id="emiRateSource" class="note" style="margin-top:0.3rem;"></div>
+        </div>
+        <div class="emi-breakdown" id="emiBreakdown"></div>
+      </section>
+
+      <!-- My Notes & HOA Coverage -->
+      <section class="card" id="notesCard">
+        <h2>📝 My Notes</h2>
+        <div style="display:flex;flex-direction:column;gap:0.8rem;">
+          <div>
+            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:0.3rem;">Additional Notes</label>
+            <textarea id="userNotes" rows="3" placeholder="Your notes about this property (e.g., liked the layout, needs new roof, quiet neighborhood...)" style="width:100%;padding:0.6rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.88rem;resize:vertical;"></textarea>
+          </div>
+          <div>
+            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:0.5rem;">HOA Covers</label>
+            <div class="hoa-checkboxes" id="hoaCheckboxes">
+              <label class="hoa-cb"><input type="checkbox" value="Water"> Water</label>
+              <label class="hoa-cb"><input type="checkbox" value="Sewer"> Sewer</label>
+              <label class="hoa-cb"><input type="checkbox" value="Garbage"> Garbage</label>
+              <label class="hoa-cb"><input type="checkbox" value="Exterior Maintenance"> Exterior Maintenance</label>
+              <label class="hoa-cb"><input type="checkbox" value="Roof"> Roof</label>
+              <label class="hoa-cb"><input type="checkbox" value="Landscaping"> Landscaping</label>
+              <label class="hoa-cb"><input type="checkbox" value="Snow Removal"> Snow Removal</label>
+              <label class="hoa-cb"><input type="checkbox" value="Common Areas"> Common Areas</label>
+              <label class="hoa-cb"><input type="checkbox" value="Pool"> Pool</label>
+              <label class="hoa-cb"><input type="checkbox" value="Gym / Fitness"> Gym / Fitness</label>
+              <label class="hoa-cb"><input type="checkbox" value="Clubhouse"> Clubhouse</label>
+              <label class="hoa-cb"><input type="checkbox" value="Parking"> Parking</label>
+              <label class="hoa-cb"><input type="checkbox" value="Security / Gate"> Security / Gate</label>
+              <label class="hoa-cb"><input type="checkbox" value="Insurance (Building)"> Insurance (Building)</label>
+              <label class="hoa-cb"><input type="checkbox" value="Internet / Cable"> Internet / Cable</label>
+              <label class="hoa-cb"><input type="checkbox" value="Pest Control"> Pest Control</label>
+              <label class="hoa-cb"><input type="checkbox" value="Earthquake Insurance"> Earthquake Insurance</label>
+              <label class="hoa-cb"><input type="checkbox" value="Reserve Fund"> Reserve Fund</label>
+            </div>
+            <input type="text" id="hoaCoversOther" placeholder="Other (comma-separated)" style="width:100%;margin-top:0.4rem;padding:0.5rem 0.6rem;border:1px solid var(--border);border-radius:8px;font-size:0.85rem;" />
+          </div>
+          <button class="emi-calc-btn" onclick="saveNotes()" style="max-width:250px;">💾 Save Notes</button>
+        </div>
+      </section>
+
+      <!-- Sales History -->
+      <section class="card" id="salesCard">
+        <h2>🏷️ Sales &amp; Price History</h2>
+        <table id="salesTable">
+          <thead><tr><th>Date</th><th>Price</th><th>Event</th><th>Source</th></tr></thead>
+          <tbody id="salesBody"></tbody>
+        </table>
+        <p id="salesEmpty" class="empty hidden">No sales or price history found. Check eReal Property for older records.</p>
+      </section>
+
+      <!-- Condition & Quality -->
+      <section class="card" id="conditionCard">
+        <h2>🔨 Property Condition & Details</h2>
+        <div class="condition-grid" id="conditionGrid"></div>
+      </section>
+
+      <!-- Vastu & Direction -->
+      <section class="card" id="vastuCard">
+        <h2>🧭 Vastu Shastra Analysis</h2>
+        <div class="vastu-direction">
+          <label class="vastu-label">Entrance Door Direction:</label>
+          <div class="direction-picker" id="directionPicker">
+            <div class="compass-ring">
+              <button class="dir-btn" data-dir="N" onclick="setDirection('N',this)">N</button>
+              <button class="dir-btn" data-dir="NE" onclick="setDirection('NE',this)">NE</button>
+              <button class="dir-btn" data-dir="E" onclick="setDirection('E',this)">E</button>
+              <button class="dir-btn" data-dir="SE" onclick="setDirection('SE',this)">SE</button>
+              <button class="dir-btn" data-dir="S" onclick="setDirection('S',this)">S</button>
+              <button class="dir-btn" data-dir="SW" onclick="setDirection('SW',this)">SW</button>
+              <button class="dir-btn" data-dir="W" onclick="setDirection('W',this)">W</button>
+              <button class="dir-btn" data-dir="NW" onclick="setDirection('NW',this)">NW</button>
+            </div>
+          </div>
+          <p class="note" id="directionAutoNote"></p>
+        </div>
+        <div class="vastu-result" id="vastuResult">
+          <p class="note">Select the entrance door direction above to see Vastu analysis.</p>
+        </div>
+      </section>
+
+      <!-- Good Buy Analysis -->
+      <section class="card" id="buyAnalysisCard">
+        <h2>🎯 Should You Buy? — Analysis</h2>
+        <div class="buy-score-header" id="buyScoreHeader"></div>
+        <div class="buy-factors" id="buyFactors"></div>
+        <div class="buy-summary" id="buySummary"></div>
+      </section>
+
+      <!-- HOA Info -->
+      <section class="card" id="hoaCard">
+        <h2>🏘️ HOA Information</h2>
+        <div class="hoa-content" id="hoaContent"></div>
+        <div class="hoa-manual">
+          <h3>HOA Details (saved locally in your browser)</h3>
+          <div class="hoa-form">
+            <label>Monthly HOA ($): <input type="number" id="hoaManualCost" placeholder="0" /></label>
+            <label>Notes: <textarea id="hoaNotes" rows="2" placeholder="e.g., includes pool, gym, landscaping…"></textarea></label>
+            <button onclick="saveHoaManual()">💾 Save</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Special Assessments -->
+      <section class="card" id="specialCard">
+        <h2>⚠️ Special Assessments</h2>
+        <div id="specialContent">
+          <p class="note">Special assessments (LIDs, utility assessments) are not in public APIs.
+            Check <a href="https://blue.kingcounty.com/Assessor/eRealProperty/" target="_blank">King County eReal Property</a>
+            or your HOA documents. You can track them here:</p>
+          <div class="hoa-form" style="margin-top:0.5rem">
+            <label>Description: <input type="text" id="specialDesc" placeholder="e.g., Sewer LID" /></label>
+            <label>Amount ($): <input type="number" id="specialAmount" placeholder="0" /></label>
+            <button onclick="addSpecialAssessment()">➕ Add</button>
+          </div>
+          <ul id="specialList"></ul>
+        </div>
+      </section>
+
+      <!-- Links -->
+      <section class="card" id="linksCard">
+        <h2>🔗 More Resources</h2>
+        <div id="linksContent"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Data from King County Assessor public records. Not legal or financial advice.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
