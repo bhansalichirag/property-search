@@ -1330,37 +1330,85 @@ function fmtEMI(n) {
 // ── Vastu Shastra Analysis ──
 const VASTU_DATA = {
   N:  { score: 85, rating: "Very Good", emoji: "🟢",
-        summary: "North-facing entrance is excellent for wealth and career growth.",
+        summary: "North-facing entrance is excellent for wealth and career growth — ideal for IT & Finance professionals.",
         details: `<strong>Ruling deity:</strong> Kubera (god of wealth &amp; treasure).<br>
 <strong>Element:</strong> Water.<br>
 <strong>Planets:</strong> Mercury &amp; Jupiter.<br><br>
 A north-facing door invites the magnetic energy of the Earth, which flows from the North Pole. Kubera's blessings make this ideal for professionals, business owners, and anyone seeking financial prosperity. The north is associated with career advancement, networking, and steady income flow.<br><br>
 <strong>Best for:</strong> Finance professionals, entrepreneurs, IT workers, consultants.<br>
 <strong>Interior tips:</strong> Keep the north side of the home open and clutter-free. A small water fountain or fish aquarium in the north living area amplifies wealth energy. Use light blues and greens near the entrance.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>Home office placement:</strong> Set up your desk in the <strong>north or northeast</strong> area of the house — Mercury's energy boosts logical thinking, debugging skills, and technical communication.</li>
+<li><strong>Monitor direction:</strong> Face <strong>north or east</strong> while working. This aligns with Mercury and enhances concentration during coding, system design, and problem-solving.</li>
+<li><strong>Career boost:</strong> Kubera's influence supports <strong>salary negotiations, promotions, and stock/RSU growth</strong>. Keep your offer letters or career goals written on paper in the north zone.</li>
+<li><strong>Networking:</strong> North energy is excellent for LinkedIn connections, referrals, and networking events. Keep your networking devices (phone, laptop) charged in the north area.</li>
+<li><strong>Tip:</strong> Place a small <strong>globe or world map</strong> in your home office — symbolizes global tech career opportunities.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>This is YOUR ideal direction.</strong> Kubera literally rules wealth — north-facing homes are considered the <strong>#1 choice for finance careers</strong>.</li>
+<li><strong>Investment decisions:</strong> Make important financial decisions (stock trades, portfolio reviews, investment calls) while facing north. Place your trading monitor or finance workstation here.</li>
+<li><strong>Wealth corner:</strong> Keep a <strong>safe, locker, or investment documents</strong> in the north or north-center of the home. Never keep them in the south or southwest.</li>
+<li><strong>Tax planning:</strong> Review tax documents and financial plans in the north room for clarity.</li>
+<li><strong>Tip:</strong> A <strong>green or blue painting of water</strong> (ocean, lake, waterfall) in the north area symbolizes flowing wealth.</li>
+</ul>`,
         remedies: "No major remedies needed. Maintain a clean, clutter-free entrance. Enhance with a <strong>small water feature</strong> (fountain or aquarium) in the north area. Use light blue/green door or mat. Keep shoes organized and away from the main door. A <strong>Kubera Yantra</strong> behind the door is considered beneficial." },
 
   NE: { score: 95, rating: "Excellent", emoji: "🟢",
-        summary: "Northeast is the most auspicious direction in Vastu — the 'Ishaan' corner.",
+        summary: "Northeast is the most auspicious direction — the 'Ishaan' corner. Best for wisdom and all-around success.",
         details: `<strong>Ruling deity:</strong> Lord Shiva (Ishaan — the supreme lord).<br>
 <strong>Element:</strong> Water + Ether (space).<br>
 <strong>Planets:</strong> Jupiter (Guru).<br><br>
 The northeast corner is called "Ishaan Kon" — the most sacred and powerful direction in Vastu Shastra. The first rays of the rising sun enter through the northeast, bringing divine energy, wisdom, and spiritual growth. This is considered the direction from which all positive cosmic energy flows into a home.<br><br>
 <strong>Best for:</strong> Everyone — especially families seeking harmony, students, spiritual practitioners, and those wanting all-around prosperity.<br>
 <strong>Interior tips:</strong> Keep the NE area at a lower level than the rest of the house. A prayer room or meditation space here is ideal. Never place a toilet or heavy storage in the NE corner. Water elements (fountain, aquarium) in the NE are extremely auspicious.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>The wisdom direction:</strong> Jupiter (Guru) governs knowledge and learning. NE is the <strong>best direction for continuous learning</strong> — certifications, new technologies, system design prep.</li>
+<li><strong>Home office:</strong> Place your study/learning desk in the NE. Read technical books, take online courses, and do LeetCode/system design practice facing NE for maximum retention.</li>
+<li><strong>Innovation:</strong> This direction sparks <strong>creative problem-solving and architectural thinking</strong>. Great for solution architects, tech leads, and principal engineers.</li>
+<li><strong>Interviews:</strong> Take virtual interviews sitting in the NE area of your home. Jupiter's energy gives confidence and articulation.</li>
+<li><strong>Tip:</strong> Keep your <strong>books, certifications, and awards</strong> in the NE zone — they attract more knowledge energy.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>Strategic thinking:</strong> NE energy is ideal for <strong>long-term financial planning, portfolio strategy, and risk analysis</strong>. Jupiter brings big-picture wisdom.</li>
+<li><strong>CFA/CPA study:</strong> If pursuing certifications, study in the NE area. Jupiter is the planet of higher education and professional credentials.</li>
+<li><strong>Ethical investing:</strong> NE promotes dharmic (righteous) decisions — good for ESG investing, ethical fund management, and fiduciary responsibility.</li>
+<li><strong>Client trust:</strong> Jupiter governs trust and reputation. Take important client calls from the NE area.</li>
+<li><strong>Tip:</strong> A <strong>crystal globe or prism</strong> in the NE catches morning light and is said to amplify wisdom energy.</li>
+</ul>`,
         remedies: "No remedies needed — this is the best possible entrance direction! To maximize its benefit: keep the entrance spotlessly clean, ensure it opens inward, install bright warm lighting, and place fresh flowers or a Tulsi plant near the door. A <strong>Swastik</strong> or <strong>Om symbol</strong> on the door enhances positive energy." },
 
   E:  { score: 90, rating: "Excellent", emoji: "🟢",
-        summary: "East-facing entrance brings health, positivity, and social reputation.",
+        summary: "East-facing entrance brings health, positivity, and social reputation — great for leadership roles.",
         details: `<strong>Ruling deity:</strong> Indra (king of gods) &amp; Surya (Sun god).<br>
 <strong>Element:</strong> Fire (Agni) — solar energy.<br>
 <strong>Planets:</strong> Sun.<br><br>
 The east represents the rising sun — the most powerful source of positive energy. An east-facing entrance floods the home with morning sunlight, providing natural Vitamin D, killing bacteria, and uplifting the mood of residents. Indra blesses the household with fame, leadership, and social standing.<br><br>
 <strong>Best for:</strong> Families with children, government employees, leaders, teachers, and anyone seeking health and recognition.<br>
 <strong>Interior tips:</strong> Keep the east side open with large windows. Never block the east with tall structures or heavy curtains. A living room or study in the east section is ideal. Use warm golden or orange tones for the entrance.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>Leadership energy:</strong> Sun = leadership. Ideal for <strong>engineering managers, directors, VPs, and CTOs</strong>. The east amplifies your ability to lead teams and make decisive technical calls.</li>
+<li><strong>Morning routine:</strong> East-facing homes get early sunlight, promoting a <strong>healthy wake-up routine</strong> — crucial for stand-ups, morning meetings, and productive coding sessions.</li>
+<li><strong>Visibility:</strong> Sun brings recognition. Your <strong>PRs, demos, and presentations</strong> will get noticed. Good for people seeking promotions to Staff/Principal level.</li>
+<li><strong>Home office:</strong> Place your desk where morning sun hits. Natural light reduces eye strain during long coding sessions and boosts serotonin.</li>
+<li><strong>Tip:</strong> Do your <strong>1-on-1s, performance reviews, and skip-levels</strong> in the east-facing room — Sun's energy gives authority and clarity.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>Market opening:</strong> East = sunrise = market open. The energy aligns perfectly with <strong>morning trading, market analysis, and early research</strong>.</li>
+<li><strong>Reputation:</strong> Indra brings social standing. Great for <strong>fund managers, partners, and client-facing roles</strong> where reputation matters.</li>
+<li><strong>Decision clarity:</strong> The Sun's energy cuts through confusion — ideal for making <strong>high-stakes investment decisions</strong> in the morning.</li>
+<li><strong>Team leadership:</strong> If you manage a finance team or trading desk, east-facing energy helps you <strong>inspire and lead effectively</strong>.</li>
+<li><strong>Tip:</strong> Review your <strong>portfolio performance and market news</strong> in the east room with morning sunlight for clearest thinking.</li>
+</ul>`,
         remedies: "No major remedies needed. To enhance: use a <strong>bright yellow or golden door</strong>. Hang a <strong>Sun symbol</strong> (Surya Yantra) near the entrance. Ensure morning light can enter — avoid heavy curtains on east-facing windows. Place a <strong>Tulsi plant</strong> or flowering plants near the entrance." },
 
   SE: { score: 55, rating: "Average", emoji: "🟡",
-        summary: "Southeast is the fire corner — can bring aggression and health issues if not balanced.",
+        summary: "Southeast is the fire corner — can bring aggression but also drive and ambition if balanced.",
         details: `<strong>Ruling deity:</strong> Agni (god of fire).<br>
 <strong>Element:</strong> Fire.<br>
 <strong>Planets:</strong> Venus (Shukra).<br><br>
@@ -1368,6 +1416,22 @@ The southeast is dominated by Agni (fire element). While fire is essential for c
 However, a kitchen placed in the SE corner is considered excellent — the fire element is in its natural position there.<br><br>
 <strong>Impact areas:</strong> Relationships (conflicts), health (acidity, blood pressure, inflammation), legal matters, financial disputes.<br>
 <strong>Who should be cautious:</strong> Families with young children, couples, and people prone to anger.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>Startup energy:</strong> Fire = drive and ambition. SE can be <strong>beneficial for startup founders and entrepreneurs</strong> who need aggressive energy to ship fast and compete.</li>
+<li><strong>Burnout risk:</strong> ⚠️ The fire element can cause <strong>overwork and burnout</strong>. If you're in a high-pressure on-call rotation or crunch mode, balance with cooling remedies (see below).</li>
+<li><strong>Conflict in teams:</strong> SE energy can cause <strong>friction in code reviews, disagreements in design discussions</strong>, and clashes with managers. Be aware and practice patience.</li>
+<li><strong>Home office:</strong> Do NOT place your desk in the SE corner. Use the <strong>north or east</strong> instead. Keep the SE for the kitchen.</li>
+<li><strong>Tip:</strong> If you're an on-call SRE/DevOps, the fire energy can make you <strong>reactive and stressed</strong>. Place a <strong>water bottle or small plant</strong> on your desk to cool the energy.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>Aggressive trading:</strong> Fire energy supports <strong>day trading and high-frequency decisions</strong> but increases risk of impulsive trades.</li>
+<li><strong>Disputes:</strong> ⚠️ Can trigger <strong>tax audits, regulatory issues, or client disputes</strong>. Keep all compliance paperwork meticulous.</li>
+<li><strong>Venus influence:</strong> Venus adds luxury spending tendencies — watch for <strong>lifestyle inflation and unnecessary expenses</strong>.</li>
+<li><strong>Balance needed:</strong> Review investments in a <strong>north-facing room</strong>, not in the SE area. Make financial decisions calmly, not impulsively.</li>
+<li><strong>Tip:</strong> Keep financial documents and trading setups <strong>away from the SE corner</strong> of the house.</li>
+</ul>`,
         remedies: `<strong>Essential remedies for SE entrance:</strong><br>
 • Place a <strong>water fountain or small aquarium</strong> just inside the entrance to counter fire energy<br>
 • Use <strong>green and blue colors</strong> for the door and entrance mat — these cool down fire<br>
@@ -1379,7 +1443,7 @@ However, a kitchen placed in the SE corner is considered excellent — the fire 
 • A <strong>brass or copper threshold strip</strong> at the base of the door reduces negative effects` },
 
   S:  { score: 45, rating: "Below Average", emoji: "🟠",
-        summary: "South-facing entrance is generally not recommended — associated with Yama (god of death).",
+        summary: "South-facing entrance is generally not recommended — associated with Yama. Needs remedies for career stability.",
         details: `<strong>Ruling deity:</strong> Yama (god of death &amp; dharma).<br>
 <strong>Element:</strong> Earth.<br>
 <strong>Planets:</strong> Mars (Mangal).<br><br>
@@ -1390,6 +1454,22 @@ The south direction is ruled by Yama, which in Vastu creates an association with
 • <strong>S1-S2 (toward SE):</strong> Moderate — fire element helps somewhat<br><br>
 <strong>Impact areas:</strong> Health (fatigue, depression), finances (unexpected expenses), career (slow progress), family harmony.<br>
 <strong>Who is most affected:</strong> People with weak Mars in their horoscope, elderly residents.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>Career stagnation risk:</strong> ⚠️ South energy can cause <strong>slow promotion cycles, being overlooked for projects, and feeling stuck at the same level</strong>.</li>
+<li><strong>Layoff vulnerability:</strong> Mars + Yama can create sudden endings. Keep your <strong>resume updated, LinkedIn active, and emergency fund strong</strong>.</li>
+<li><strong>Heavy workload:</strong> You may find yourself <strong>taking on more work without recognition</strong>. Set clear boundaries with managers.</li>
+<li><strong>Home office remedy:</strong> NEVER face south while working. Set up your desk to face <strong>north or east</strong>. Place a <strong>Hanuman picture</strong> on the south wall for protection.</li>
+<li><strong>Tip:</strong> Use <strong>bright lighting</strong> in your workspace. South energy brings heaviness — combat it with warm, bright lights and an organized, minimal desk.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>Unexpected expenses:</strong> ⚠️ South entrance correlates with <strong>surprise bills, medical expenses, car repairs, and home maintenance costs</strong>. Budget a larger emergency fund (8-12 months).</li>
+<li><strong>Investment caution:</strong> Mars energy can cause <strong>aggressive, risky investments</strong>. Stick to diversified, conservative portfolios. Avoid speculative trades.</li>
+<li><strong>Tax complications:</strong> Be extra careful with <strong>tax filings and compliance</strong>. Double-check everything.</li>
+<li><strong>Remedy:</strong> Keep your <strong>financial documents, safe, and investment paperwork in the NORTH</strong> of the house. Never in the south.</li>
+<li><strong>Tip:</strong> Review your <strong>insurance coverage</strong> — south-facing homes benefit from having comprehensive protection.</li>
+</ul>`,
         remedies: `<strong>Essential remedies for South entrance:</strong><br>
 • Install a <strong>heavy brass or copper threshold strip</strong> at the door base — this is the single most important remedy<br>
 • Place a <strong>Vastu pyramid</strong> or <strong>Vastu Dosh Nivaran Yantra</strong> above the door frame<br>
@@ -1403,7 +1483,7 @@ The south direction is ruled by Yama, which in Vastu creates an association with
 • <strong>Never leave the south door open</strong> unnecessarily — keep it closed when not in use` },
 
   SW: { score: 30, rating: "Poor", emoji: "🔴",
-        summary: "Southwest entrance is the most inauspicious in Vastu — ruled by Nirrti (demon of dissolution).",
+        summary: "Southwest entrance is the most inauspicious — ruled by Nirrti. Significant remedies needed for IT/Finance professionals.",
         details: `<strong>Ruling deity:</strong> Nirrti (demon of dissolution &amp; decay).<br>
 <strong>Element:</strong> Earth (heavy, stagnant).<br>
 <strong>Planets:</strong> Rahu (shadow planet of confusion).<br><br>
@@ -1415,6 +1495,22 @@ The southwest is considered the most negative direction for an entrance in Vastu
 • <strong>Career:</strong> Sudden job loss, backstabbing by colleagues, stalled promotions<br>
 • <strong>General:</strong> A persistent feeling of "nothing goes right" despite best efforts<br><br>
 <strong>Severity:</strong> This is a <strong>major Vastu dosha</strong> (defect). If you are considering purchasing this property, factor this heavily into your decision. Professional Vastu consultation is strongly recommended.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>🚨 High risk direction:</strong> Rahu's confusion energy can cause <strong>bad technical decisions, production incidents, and misunderstandings with management</strong>.</li>
+<li><strong>Job instability:</strong> SW entrance strongly correlates with <strong>surprise PIPs, layoffs, and project cancellations</strong>. Always have a backup plan.</li>
+<li><strong>Imposter syndrome:</strong> Rahu amplifies self-doubt and confusion. You may feel <strong>less confident in interviews, design reviews, and presentations</strong>.</li>
+<li><strong>Home office:</strong> Do NOT work in the SW room. Set up your workspace in the <strong>north or northeast</strong>. Face north while coding. Keep SW area heavy with furniture (stabilizing earth energy).</li>
+<li><strong>Critical tip:</strong> Keep your <strong>emergency fund at 12+ months</strong>. Maintain active job search networks. Update your resume quarterly.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>🚨 Financial losses:</strong> SW is the <strong>worst direction for financial professionals</strong>. Rahu causes confusion in investments, missed opportunities, and bad timing.</li>
+<li><strong>Fraud/deception risk:</strong> Be extra vigilant about <strong>scams, misleading investments, and untrustworthy partners</strong>. Rahu governs deception.</li>
+<li><strong>Avoid speculation:</strong> Absolutely NO day trading, crypto speculation, or leveraged positions from a SW-facing home without serious remedies.</li>
+<li><strong>Protect assets:</strong> Keep all <strong>valuables, documents, and financial instruments in the NORTH</strong>. Never in the SW.</li>
+<li><strong>Critical tip:</strong> Consider a <strong>professional Vastu consultation</strong> before purchasing. The financial impact of SW entrance is the most severe of all directions.</li>
+</ul>`,
         remedies: `<strong>Critical remedies for SW entrance (professional consultation recommended):</strong><br>
 • <strong>Heavy brass/copper threshold strip</strong> — use the thickest available<br>
 • <strong>Vastu pyramid</strong> above the door frame AND a <strong>lead metal strip</strong> embedded under the threshold<br>
@@ -1430,7 +1526,7 @@ The southwest is considered the most negative direction for an entrance in Vastu
 • <strong>Never store valuables, cash, or important documents</strong> near the SW entrance` },
 
   W:  { score: 65, rating: "Good", emoji: "🟢",
-        summary: "West-facing entrance is acceptable and can bring prosperity through sustained effort.",
+        summary: "West-facing entrance brings prosperity through sustained effort — Saturn rewards discipline and hard work.",
         details: `<strong>Ruling deity:</strong> Varuna (god of water, rain, and the cosmic order).<br>
 <strong>Element:</strong> Water.<br>
 <strong>Planets:</strong> Saturn (Shani).<br><br>
@@ -1438,10 +1534,26 @@ The west direction is ruled by Varuna and influenced by Saturn. This brings a me
 <strong>Best for:</strong> People in entertainment, media, politics, public relations, and creative fields. Also good for people who work late hours (the afternoon/evening sun energizes).<br><br>
 <strong>Interior tips:</strong> The master bedroom in the SW corner of a west-facing home is ideal. Keep the west entrance well-lit. A metal or iron nameplate is beneficial.<br>
 <strong>Note:</strong> Saturn's influence means results come slowly but are long-lasting. Patience is key with a west-facing home.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>Saturn = discipline:</strong> West-facing energy rewards <strong>deep work, methodical coding, and long-term projects</strong>. Great for backend engineers, database architects, and infrastructure/platform teams.</li>
+<li><strong>Slow but steady growth:</strong> Promotions may take longer but are <strong>solid and permanent</strong>. No sudden jumps, but no sudden falls either. Ideal for people building a 20+ year career.</li>
+<li><strong>Late hours work:</strong> Evening sun energizes west-facing homes. If you work <strong>PST hours for an India team or have evening deployments</strong>, this direction supports late productivity.</li>
+<li><strong>Home office:</strong> West room works well for deep focus work. Face <strong>north or east</strong> while at your desk though, not west.</li>
+<li><strong>Tip:</strong> Use <strong>blue or grey decor</strong> in your office (Saturn's colors). Keep a <strong>disciplined routine</strong> — Saturn punishes inconsistency and rewards structure.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>Long-term investments:</strong> West energy is <strong>perfect for value investing, retirement planning, and index fund strategies</strong>. Saturn rewards patience — buy and hold works here.</li>
+<li><strong>No get-rich-quick:</strong> This is NOT the direction for day trading or speculative investments. Think <strong>Warren Buffett, not Wall Street Bets</strong>.</li>
+<li><strong>Real estate:</strong> Saturn governs property and land. West-facing homeowners often make <strong>good returns on real estate investments over 10+ years</strong>.</li>
+<li><strong>Discipline in spending:</strong> Saturn naturally encourages <strong>frugality and smart budgeting</strong>. Use this energy to build a strong savings habit.</li>
+<li><strong>Tip:</strong> Set up <strong>automated investments (SIP, 401k auto-increase, DCA)</strong> — Saturn loves systems and routines.</li>
+</ul>`,
         remedies: "Mild remedies to enhance positive energy: use a <strong>blue or grey door</strong> (Saturn's colors). Install a <strong>metal nameplate</strong> on the door. Place a <strong>pair of elephants</strong> near the entrance. Use <strong>white or cream door mat</strong>. Keep the entrance well-lit in the evening hours. A <strong>small Ganesha idol</strong> on the door is always beneficial." },
 
   NW: { score: 60, rating: "Moderate", emoji: "🟡",
-        summary: "Northwest entrance brings mobility and change — beneficial for some, destabilizing for others.",
+        summary: "Northwest brings mobility and change — good for networking and job-hopping, but can destabilize.",
         details: `<strong>Ruling deity:</strong> Vayu (god of wind &amp; air).<br>
 <strong>Element:</strong> Air.<br>
 <strong>Planets:</strong> Moon (Chandra).<br><br>
@@ -1450,6 +1562,22 @@ The northwest is governed by Vayu (wind), which brings constant movement and cha
 <strong>Negative effects:</strong> Frequent relocations, inability to settle down, restlessness, emotional instability, guests overstaying welcome, money flowing out quickly.<br><br>
 <strong>Best for:</strong> Young professionals, business travelers, property investors, people in logistics/travel.<br>
 <strong>Not ideal for:</strong> Retirees, families with young children, people seeking long-term stability.`,
+        career: `<h4>💻 For IT Professionals</h4>
+<ul>
+<li><strong>Job mobility:</strong> NW energy promotes <strong>frequent job changes and company switches</strong>. If you're a job-hopper looking for the next big TC bump, this works. If you want stability, add grounding remedies.</li>
+<li><strong>Networking gold:</strong> Vayu (wind) carries your name far. Excellent for <strong>building LinkedIn presence, speaking at conferences, and getting recruiter calls</strong>.</li>
+<li><strong>Consulting/contracting:</strong> NW is ideal for <strong>independent consultants, contractors, and freelancers</strong> who move between projects. The constant change energy supports this lifestyle.</li>
+<li><strong>Relocation:</strong> If you're considering <strong>H1B transfers, team changes, or geo-moves</strong>, NW energy makes transitions smoother.</li>
+<li><strong>Caution:</strong> ⚠️ Moon's emotional influence can cause <strong>impulsive decisions</strong> like rage-quitting. Sleep on major career decisions for 48 hours before acting.</li>
+</ul>
+<h4>💰 For Finance Professionals</h4>
+<ul>
+<li><strong>Trading friendly:</strong> The air/movement energy supports <strong>active trading, swing trading, and short-term positions</strong>. Quick in, quick out works here.</li>
+<li><strong>Cash flow warning:</strong> ⚠️ Money comes AND goes quickly with NW energy. You may earn well but <strong>spend just as fast</strong>. Set up automatic savings to counter this.</li>
+<li><strong>Banking careers:</strong> NW is specifically good for <strong>banking, FinTech, and payment processing</strong> careers — industries built on movement of money.</li>
+<li><strong>Client acquisition:</strong> If you're in sales, advisory, or wealth management, NW helps with <strong>getting new clients</strong> (but retaining them needs effort).</li>
+<li><strong>Tip:</strong> Set up <strong>automatic transfers to savings/investments on payday</strong> — don't let NW wind blow your money away before you save it.</li>
+</ul>`,
         remedies: `<strong>Remedies to add stability to NW entrance:</strong><br>
 • Use <strong>earthy tones</strong> (brown, beige, terracotta, yellow) for the door and mat<br>
 • Place <strong>heavy furniture</strong> or a solid console table near the entrance — weight counters wind<br>
@@ -1592,6 +1720,22 @@ function renderVastu(dir) {
   const barColor = v.score >= 70 ? "var(--green)" : v.score >= 50 ? "#f59e0b" : "var(--red)";
   const remedyTitle = v.score >= 70 ? "✨ Enhancement Tips" : v.score >= 50 ? "🔧 Vastu Remedies" : "🚨 Important Vastu Remedies";
 
+  // Career sections — separate panels for IT and Finance
+  let careerHtml = "";
+  if (v.career) {
+    careerHtml = `
+    <div class="vastu-career-sections">
+      <details class="vastu-career-panel vastu-career-it">
+        <summary><span class="vastu-career-icon">💻</span> Impact on IT Professionals</summary>
+        <div class="vastu-career-body">${extractCareerSection(v.career, "IT")}</div>
+      </details>
+      <details class="vastu-career-panel vastu-career-finance">
+        <summary><span class="vastu-career-icon">💰</span> Impact on Finance Professionals</summary>
+        <div class="vastu-career-body">${extractCareerSection(v.career, "Finance")}</div>
+      </details>
+    </div>`;
+  }
+
   $("vastuResult").innerHTML = `
     <div class="vastu-score-row">
       <div class="vastu-score-circle" style="border-color: ${barColor}">
@@ -1607,11 +1751,31 @@ function renderVastu(dir) {
       <h3>📖 Detailed Vastu Analysis</h3>
       <div class="vastu-details-body">${v.details}</div>
     </div>
+    ${careerHtml}
     <div class="vastu-remedies">
       <h3>${remedyTitle}</h3>
       <div class="vastu-remedies-body">${v.remedies}</div>
     </div>
   `;
+}
+
+// Extract IT or Finance section from combined career HTML
+function extractCareerSection(careerHtml, type) {
+  const marker = type === "IT" ? "For IT Professionals" : "For Finance Professionals";
+  const otherMarker = type === "IT" ? "For Finance Professionals" : "For IT Professionals";
+  const idx = careerHtml.indexOf(marker);
+  if (idx === -1) return careerHtml;
+
+  // Find the start of content after the heading
+  const headingEnd = careerHtml.indexOf("</h4>", idx);
+  const start = headingEnd >= 0 ? headingEnd + 5 : idx;
+
+  // Find where the other section starts (or end of string)
+  const otherIdx = careerHtml.indexOf(otherMarker, start);
+  let end = otherIdx >= 0 ? careerHtml.lastIndexOf("<h4>", otherIdx) : careerHtml.length;
+  if (end <= start) end = careerHtml.length;
+
+  return careerHtml.substring(start, end).trim();
 }
 
 // ── Good Buy Analysis ──

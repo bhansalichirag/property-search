@@ -469,6 +469,57 @@ tr:hover { background: #f8fafc; }
 .vastu-details-body, .vastu-remedies-body { font-size: 0.9rem; line-height: 1.7; }
 .vastu-remedies { border-left: 4px solid #f59e0b; }
 
+/* Career-specific Vastu panels */
+.vastu-career-sections { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 1rem; }
+@media (max-width: 768px) { .vastu-career-sections { grid-template-columns: 1fr; } }
+
+.vastu-career-panel {
+  background: var(--bg); border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--border); transition: box-shadow 0.2s;
+}
+.vastu-career-panel[open] { box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.vastu-career-panel summary {
+  padding: 0.8rem 1rem; cursor: pointer; font-weight: 600; font-size: 0.95rem;
+  display: flex; align-items: center; gap: 0.5rem; user-select: none;
+  list-style: none; transition: background 0.15s;
+}
+.vastu-career-panel summary::-webkit-details-marker { display: none; }
+.vastu-career-panel summary::after { content: "▸"; margin-left: auto; transition: transform 0.2s; color: var(--muted); }
+.vastu-career-panel[open] summary::after { transform: rotate(90deg); }
+.vastu-career-panel summary:hover { background: var(--accent-light); }
+
+.vastu-career-it summary { border-left: 4px solid #4f46e5; }
+.vastu-career-finance summary { border-left: 4px solid #16a34a; }
+.vastu-career-icon { font-size: 1.1rem; }
+
+.vastu-career-body {
+  padding: 0.8rem 1rem 1rem; font-size: 0.88rem; line-height: 1.7;
+}
+.vastu-career-body ul { padding-left: 1.2rem; margin: 0.3rem 0; }
+.vastu-career-body li { margin-bottom: 0.5rem; }
+
+/* Vastu explainer section */
+.vastu-explainer { margin-bottom: 1rem; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.vastu-explainer summary {
+  padding: 0.8rem 1rem; cursor: pointer; font-weight: 600; font-size: 0.92rem;
+  background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e;
+  list-style: none; display: flex; align-items: center; gap: 0.4rem;
+}
+.vastu-explainer summary::-webkit-details-marker { display: none; }
+.vastu-explainer summary::after { content: "▾"; margin-left: auto; font-size: 1rem; }
+.vastu-explainer[open] summary { border-bottom: 1px solid var(--border); }
+.vastu-explainer-body {
+  padding: 1rem; font-size: 0.88rem; line-height: 1.7;
+}
+.vastu-explainer-body p { margin-bottom: 0.6rem; }
+.vastu-explainer-body h4 { margin: 1rem 0 0.4rem; font-size: 0.92rem; }
+.vastu-explainer-body ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+.vastu-explainer-body ol li { margin-bottom: 0.4rem; }
+.vastu-rank-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 0.4rem; }
+.vastu-rank-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); }
+.vastu-rank-table tr:last-child td { border-bottom: none; }
+.vastu-rank-table td:first-child { white-space: nowrap; width: 120px; }
+
 .compass-ring { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin: 0.8rem 0; }
 .dir-btn {
   width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--border);
