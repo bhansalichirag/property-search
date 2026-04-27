@@ -111,6 +111,8 @@
     <option value="monthly-desc">Highest monthly</option>
   </select>
   <button onclick="exportCSV()">📥 Export CSV</button>
+  <button onclick="document.getElementById('csvFileInput').click()">📤 Import CSV</button>
+  <input type="file" id="csvFileInput" accept=".csv" style="display:none" onchange="importCSV(this)" />
   <button class="danger" onclick="clearAll()">🗑️ Clear All</button>
   <span class="count" id="countLabel">0 searches</span>
 </div>
@@ -290,6 +292,137 @@ function exportCSV() {
   const a = document.createElement("a");
   a.href = url; a.download = `property-search-history-${new Date().toISOString().slice(0,10)}.csv`;
   a.click(); URL.revokeObjectURL(url);
+}
+
+function importCSV(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = ""; // reset so same file can be re-imported
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const text = e.target.result;
+      const rows = parseCSV(text);
+      if (rows.length < 2) { alert("CSV file is empty or has no data rows."); return; }
+
+      const headers = rows[0].map(h => h.trim().toLowerCase());
+      const dataRows = rows.slice(1);
+
+      // Map CSV columns to history entry fields
+      const colMap = {
+        "date": "date", "address": "address", "city": "city", "state": "state", "zip": "zip",
+        "beds": "bedrooms", "baths": "bathrooms", "sqft": "sqft", "year built": "yearBuilt",
+        "buy score": "buyScore", "buy verdict": "buyVerdict", "vastu dir": "vastuDir", "vastu rating": "vastuRating",
+        "hoa/mo": "hoaMonthly", "hoa covers": "hoaCovers", "market value": "marketValue", "list price": "listPrice",
+        "monthly cost": "totalMonthly", "rate %": "rate", "prop tax/yr": "propertyTax", "insurance/yr": "insurance",
+        "notes": "notes"
+      };
+
+      const colIndices = {};
+      headers.forEach((h, i) => { if (colMap[h]) colIndices[colMap[h]] = i; });
+
+      if (!colIndices.address && colIndices.address !== 0) {
+        alert("CSV must have an 'Address' column."); return;
+      }
+
+      const numFields = new Set(["bedrooms", "bathrooms", "sqft", "yearBuilt", "buyScore",
+        "hoaMonthly", "marketValue", "listPrice", "totalMonthly", "rate", "propertyTax", "insurance"]);
+
+      const existing = getHistory();
+      const existingAddrs = new Set(existing.map(h => h.address));
+      let imported = 0, skipped = 0;
+
+      for (const row of dataRows) {
+        const get = (field) => {
+          const idx = colIndices[field];
+          return idx != null && row[idx] != null ? row[idx].trim() : "";
+        };
+
+        const addr = get("address");
+        if (!addr || addr === "—") continue;
+
+        // Skip duplicates
+        if (existingAddrs.has(addr)) { skipped++; continue; }
+
+        const entry = {
+          id: Date.now() + imported,
+          date: get("date") ? new Date(get("date")).toISOString() : new Date().toISOString(),
+          address: addr,
+          city: get("city"),
+          state: get("state") || "WA",
+          zip: get("zip"),
+        };
+
+        // Map all other fields
+        for (const [field, idx] of Object.entries(colIndices)) {
+          if (["date", "address", "city", "state", "zip"].includes(field)) continue;
+          const val = row[idx] != null ? row[idx].trim() : "";
+          if (!val || val === "—") continue;
+          if (numFields.has(field)) {
+            const num = parseFloat(val.replace(/[$,]/g, ""));
+            if (!isNaN(num)) entry[field] = num;
+          } else {
+            entry[field] = val;
+          }
+        }
+
+        existing.unshift(entry);
+        existingAddrs.add(addr);
+        imported++;
+      }
+
+      // Keep max 200 entries for imports
+      if (existing.length > 200) existing.length = 200;
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(existing));
+      renderTable();
+
+      alert(`✅ Imported ${imported} entries` + (skipped ? `, skipped ${skipped} duplicates` : ""));
+    } catch (err) {
+      alert("Failed to import CSV: " + err.message);
+      console.error("CSV import error:", err);
+    }
+  };
+  reader.readAsText(file);
+}
+
+// Parse CSV handling quoted fields with commas and newlines
+function parseCSV(text) {
+  const rows = [];
+  let row = [];
+  let field = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
+
+    if (inQuotes) {
+      if (ch === '"' && next === '"') {
+        field += '"'; i++; // escaped quote
+      } else if (ch === '"') {
+        inQuotes = false;
+      } else {
+        field += ch;
+      }
+    } else {
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',') {
+        row.push(field); field = "";
+      } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
+        row.push(field); field = "";
+        if (row.some(f => f.trim())) rows.push(row);
+        row = [];
+        if (ch === '\r') i++; // skip \n after \r
+      } else {
+        field += ch;
+      }
+    }
+  }
+  // Last row
+  if (field || row.length) { row.push(field); if (row.some(f => f.trim())) rows.push(row); }
+  return rows;
 }
 
 // Handle ?search= param from clicking a row
